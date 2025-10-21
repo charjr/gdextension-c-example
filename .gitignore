@@ -1,2 +1,6 @@
 # Call godot --dump-extension-api
 extension_api.json
+
+# Call scons
+.sconsign.dblite
+src/*.os
