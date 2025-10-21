@@ -25,3 +25,17 @@ void load_api(GDExtensionInterfaceGetProcAddress p_get_proc_address)
     // Destructors.
     destructors.string_name_destructor = variant_get_ptr_destructor(GDEXTENSION_VARIANT_TYPE_STRING_NAME);
 }
+
+void ptrcall_0_args_ret_float(void *method_userdata, GDExtensionClassInstancePtr p_instance, const GDExtensionConstTypePtr *p_args, GDExtensionTypePtr r_ret)
+{
+    // Call the function.
+    double (*function)(void *) = method_userdata;
+    *((double *)r_ret) = function(p_instance);
+}
+
+void ptrcall_1_float_arg_no_ret(void *method_userdata, GDExtensionClassInstancePtr p_instance, const GDExtensionConstTypePtr *p_args, GDExtensionTypePtr r_ret)
+{
+    // Call the function.
+    void (*function)(void *, double) = method_userdata;
+    function(p_instance, *((double *)p_args[0]));
+}
