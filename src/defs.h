@@ -13,3 +13,17 @@
 #define GDE_EXPORT
 #endif
 #endif // ! GDE_EXPORT
+
+// The sizes can be obtained from the extension_api.json file.
+#ifdef BUILD_32
+#define STRING_NAME_SIZE 4
+#else
+#define STRING_NAME_SIZE 8
+#endif
+
+// Types.
+
+typedef struct
+{
+    uint8_t data[STRING_NAME_SIZE];
+} StringName;
