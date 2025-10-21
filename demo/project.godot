@@ -11,5 +11,6 @@ config_version=5
 [application]
 
 config/name="GDExtension C Example"
+run/main_scene="uid://cvxoivn50lf2u"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
