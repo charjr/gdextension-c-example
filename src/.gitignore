@@ -1,0 +1,2 @@
+# Call godot --dump-gdextension-interface
+gdextension_interface.h
