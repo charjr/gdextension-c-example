@@ -34,6 +34,52 @@ void load_api(GDExtensionInterfaceGetProcAddress p_get_proc_address)
     destructors.string_destructor = variant_get_ptr_destructor(GDEXTENSION_VARIANT_TYPE_STRING);
 }
 
+GDExtensionPropertyInfo make_property(
+    GDExtensionVariantType type,
+    const char *name)
+{
+
+    return make_property_full(type, name, PROPERTY_HINT_NONE, "", "", PROPERTY_USAGE_DEFAULT);
+}
+
+GDExtensionPropertyInfo make_property_full(
+    GDExtensionVariantType type,
+    const char *name,
+    uint32_t hint,
+    const char *hint_string,
+    const char *class_name,
+    uint32_t usage_flags)
+{
+
+    StringName *prop_name = api.mem_alloc(sizeof(StringName));
+    constructors.string_name_new_with_latin1_chars(prop_name, name, false);
+    String *prop_hint_string = api.mem_alloc(sizeof(String));
+    constructors.string_new_with_utf8_chars(prop_hint_string, hint_string);
+    StringName *prop_class_name = api.mem_alloc(sizeof(StringName));
+    constructors.string_name_new_with_latin1_chars(prop_class_name, class_name, false);
+
+    GDExtensionPropertyInfo info = {
+        .name = prop_name,
+        .type = type,
+        .hint = hint,
+        .hint_string = prop_hint_string,
+        .class_name = prop_class_name,
+        .usage = usage_flags,
+    };
+
+    return info;
+}
+
+void destruct_property(GDExtensionPropertyInfo *info)
+{
+    destructors.string_name_destructor(info->name);
+    destructors.string_destructor(info->hint_string);
+    destructors.string_name_destructor(info->class_name);
+    api.mem_free(info->name);
+    api.mem_free(info->hint_string);
+    api.mem_free(info->class_name);
+}
+
 void call_0_args_ret_float(void *method_userdata, GDExtensionClassInstancePtr p_instance, const GDExtensionConstVariantPtr *p_args, GDExtensionInt p_argument_count, GDExtensionVariantPtr r_return, GDExtensionCallError *r_error)
 {
     // Check argument count.
