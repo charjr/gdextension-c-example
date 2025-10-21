@@ -27,6 +27,11 @@ extern struct Destructors
 extern struct API
 {
     GDExtensionInterfaceClassdbRegisterExtensionClass2 classdb_register_extension_class2;
+    GDExtensionInterfaceClassdbConstructObject classdb_construct_object;
+    GDExtensionInterfaceObjectSetInstance object_set_instance;
+    GDExtensionInterfaceObjectSetInstanceBinding object_set_instance_binding;
+    GDExtensionInterfaceMemAlloc mem_alloc;
+    GDExtensionInterfaceMemFree mem_free;
 } api;
 
 void load_api(GDExtensionInterfaceGetProcAddress p_get_proc_address);
