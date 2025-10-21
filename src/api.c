@@ -13,6 +13,7 @@ void load_api(GDExtensionInterfaceGetProcAddress p_get_proc_address)
 
     // API.
     api.classdb_register_extension_class2 = (GDExtensionInterfaceClassdbRegisterExtensionClass2)p_get_proc_address("classdb_register_extension_class2");
+    api.classdb_register_extension_class_method = p_get_proc_address("classdb_register_extension_class_method");
     api.classdb_construct_object = (GDExtensionInterfaceClassdbConstructObject)p_get_proc_address("classdb_construct_object");
     api.object_set_instance = p_get_proc_address("object_set_instance");
     api.object_set_instance_binding = p_get_proc_address("object_set_instance_binding");
@@ -24,11 +25,13 @@ void load_api(GDExtensionInterfaceGetProcAddress p_get_proc_address)
 
     // Constructors.
     constructors.string_name_new_with_latin1_chars = (GDExtensionInterfaceStringNameNewWithLatin1Chars)p_get_proc_address("string_name_new_with_latin1_chars");
+    constructors.string_new_with_utf8_chars = p_get_proc_address("string_new_with_utf8_chars");
     constructors.variant_from_float_constructor = api.get_variant_from_type_constructor(GDEXTENSION_VARIANT_TYPE_FLOAT);
     constructors.float_from_variant_constructor = api.get_variant_to_type_constructor(GDEXTENSION_VARIANT_TYPE_FLOAT);
 
     // Destructors.
     destructors.string_name_destructor = variant_get_ptr_destructor(GDEXTENSION_VARIANT_TYPE_STRING_NAME);
+    destructors.string_destructor = variant_get_ptr_destructor(GDEXTENSION_VARIANT_TYPE_STRING);
 }
 
 void call_0_args_ret_float(void *method_userdata, GDExtensionClassInstancePtr p_instance, const GDExtensionConstVariantPtr *p_args, GDExtensionInt p_argument_count, GDExtensionVariantPtr r_return, GDExtensionCallError *r_error)
