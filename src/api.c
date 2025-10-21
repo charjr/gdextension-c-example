@@ -80,6 +80,89 @@ void destruct_property(GDExtensionPropertyInfo *info)
     api.mem_free(info->class_name);
 }
 
+// Version for 0 arguments, with return.
+void bind_method_0_r(
+    const char *class_name,
+    const char *method_name,
+    void *function,
+    GDExtensionVariantType return_type)
+{
+    StringName method_name_string;
+    constructors.string_name_new_with_latin1_chars(&method_name_string, method_name, false);
+
+    GDExtensionClassMethodCall call_func = call_0_args_ret_float;
+    GDExtensionClassMethodPtrCall ptrcall_func = ptrcall_0_args_ret_float;
+
+    GDExtensionPropertyInfo return_info = make_property(return_type, "");
+
+    GDExtensionClassMethodInfo method_info = {
+        .name = &method_name_string,
+        .method_userdata = function,
+        .call_func = call_func,
+        .ptrcall_func = ptrcall_func,
+        .method_flags = GDEXTENSION_METHOD_FLAGS_DEFAULT,
+        .has_return_value = true,
+        .return_value_info = &return_info,
+        .return_value_metadata = GDEXTENSION_METHOD_ARGUMENT_METADATA_NONE,
+        .argument_count = 0,
+    };
+
+    StringName class_name_string;
+    constructors.string_name_new_with_latin1_chars(&class_name_string, class_name, false);
+
+    api.classdb_register_extension_class_method(class_library, &class_name_string, &method_info);
+
+    // Destruct things.
+    destructors.string_name_destructor(&method_name_string);
+    destructors.string_name_destructor(&class_name_string);
+    destruct_property(&return_info);
+}
+
+// Version for 1 argument, no return.
+void bind_method_1(
+    const char *class_name,
+    const char *method_name,
+    void *function,
+    const char *arg1_name,
+    GDExtensionVariantType arg1_type)
+{
+
+    StringName method_name_string;
+    constructors.string_name_new_with_latin1_chars(&method_name_string, method_name, false);
+
+    GDExtensionClassMethodCall call_func = call_1_float_arg_no_ret;
+    GDExtensionClassMethodPtrCall ptrcall_func = ptrcall_1_float_arg_no_ret;
+
+    GDExtensionPropertyInfo args_info[] = {
+        make_property(arg1_type, arg1_name),
+    };
+    GDExtensionClassMethodArgumentMetadata args_metadata[] = {
+        GDEXTENSION_METHOD_ARGUMENT_METADATA_NONE,
+    };
+
+    GDExtensionClassMethodInfo method_info = {
+        .name = &method_name_string,
+        .method_userdata = function,
+        .call_func = call_func,
+        .ptrcall_func = ptrcall_func,
+        .method_flags = GDEXTENSION_METHOD_FLAGS_DEFAULT,
+        .has_return_value = false,
+        .argument_count = 1,
+        .arguments_info = args_info,
+        .arguments_metadata = args_metadata,
+    };
+
+    StringName class_name_string;
+    constructors.string_name_new_with_latin1_chars(&class_name_string, class_name, false);
+
+    api.classdb_register_extension_class_method(class_library, &class_name_string, &method_info);
+
+    // Destruct things.
+    destructors.string_name_destructor(&method_name_string);
+    destructors.string_name_destructor(&class_name_string);
+    destruct_property(&args_info[0]);
+}
+
 void call_0_args_ret_float(void *method_userdata, GDExtensionClassInstancePtr p_instance, const GDExtensionConstVariantPtr *p_args, GDExtensionInt p_argument_count, GDExtensionVariantPtr r_return, GDExtensionCallError *r_error)
 {
     // Check argument count.
