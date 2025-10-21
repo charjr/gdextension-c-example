@@ -39,6 +39,21 @@ extern struct API
     GDExtensionInterfaceVariantGetType variant_get_type;
 } api;
 
+// Create a PropertyInfo struct.
+GDExtensionPropertyInfo make_property(
+    GDExtensionVariantType type,
+    const char *name);
+
+GDExtensionPropertyInfo make_property_full(
+    GDExtensionVariantType type,
+    const char *name,
+    uint32_t hint,
+    const char *hint_string,
+    const char *class_name,
+    uint32_t usage_flags);
+
+void destruct_property(GDExtensionPropertyInfo *info);
+
 void load_api(GDExtensionInterfaceGetProcAddress p_get_proc_address);
 
 // Helpers for calling functions.
