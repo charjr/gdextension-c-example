@@ -17,6 +17,8 @@ extern GDExtensionClassLibraryPtr class_library;
 extern struct Constructors
 {
     GDExtensionInterfaceStringNameNewWithLatin1Chars string_name_new_with_latin1_chars;
+    GDExtensionVariantFromTypeConstructorFunc variant_from_float_constructor;
+    GDExtensionTypeFromVariantConstructorFunc float_from_variant_constructor;
 } constructors;
 
 extern struct Destructors
@@ -32,6 +34,9 @@ extern struct API
     GDExtensionInterfaceObjectSetInstanceBinding object_set_instance_binding;
     GDExtensionInterfaceMemAlloc mem_alloc;
     GDExtensionInterfaceMemFree mem_free;
+    GDExtensionInterfaceGetVariantFromTypeConstructor get_variant_from_type_constructor;
+    GDExtensionInterfaceGetVariantToTypeConstructor get_variant_to_type_constructor;
+    GDExtensionInterfaceVariantGetType variant_get_type;
 } api;
 
 void load_api(GDExtensionInterfaceGetProcAddress p_get_proc_address);
