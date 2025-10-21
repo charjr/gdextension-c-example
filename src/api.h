@@ -17,6 +17,7 @@ extern GDExtensionClassLibraryPtr class_library;
 extern struct Constructors
 {
     GDExtensionInterfaceStringNameNewWithLatin1Chars string_name_new_with_latin1_chars;
+    GDExtensionInterfaceStringNewWithUtf8Chars string_new_with_utf8_chars;
     GDExtensionVariantFromTypeConstructorFunc variant_from_float_constructor;
     GDExtensionTypeFromVariantConstructorFunc float_from_variant_constructor;
 } constructors;
@@ -24,6 +25,7 @@ extern struct Constructors
 extern struct Destructors
 {
     GDExtensionPtrDestructor string_name_destructor;
+    GDExtensionPtrDestructor string_destructor;
 } destructors;
 
 extern struct API
