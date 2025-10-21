@@ -59,6 +59,21 @@ void destruct_property(GDExtensionPropertyInfo *info);
 
 void load_api(GDExtensionInterfaceGetProcAddress p_get_proc_address);
 
+// Version for 0 arguments, with return.
+void bind_method_0_r(
+    const char *class_name,
+    const char *method_name,
+    void *function,
+    GDExtensionVariantType return_type);
+
+// Version for 1 argument, no return.
+void bind_method_1(
+    const char *class_name,
+    const char *method_name,
+    void *function,
+    const char *arg1_name,
+    GDExtensionVariantType arg1_type);
+
 // Helpers for calling functions.
 void call_0_args_ret_float(void *method_userdata, GDExtensionClassInstancePtr p_instance, const GDExtensionConstVariantPtr *p_args, GDExtensionInt p_argument_count, GDExtensionVariantPtr r_return, GDExtensionCallError *r_error);
 void call_1_float_arg_no_ret(void *method_userdata, GDExtensionClassInstancePtr p_instance, const GDExtensionConstVariantPtr *p_args, GDExtensionInt p_argument_count, GDExtensionVariantPtr r_return, GDExtensionCallError *r_error);
