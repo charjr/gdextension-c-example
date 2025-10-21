@@ -2,6 +2,10 @@
 
 GDExtensionClassLibraryPtr class_library = NULL;
 
+struct Constructors constructors;
+struct Destructors destructors;
+struct API api;
+
 void load_api(GDExtensionInterfaceGetProcAddress p_get_proc_address)
 {
     // Get helper functions first.
