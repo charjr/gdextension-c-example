@@ -4,10 +4,32 @@
 
 void gdexample_class_constructor(GDExample *self)
 {
+    self->amplitude = 10.0;
+    self->speed = 1.0;
 }
 
 void gdexample_class_destructor(GDExample *self)
 {
+}
+
+void gdexample_class_set_amplitude(GDExample *self, double amplitude)
+{
+    self->amplitude = amplitude;
+}
+
+double gdexample_class_get_amplitude(const GDExample *self)
+{
+    return self->amplitude;
+}
+
+void gdexample_class_set_speed(GDExample *self, double speed)
+{
+    self->speed = speed;
+}
+
+double gdexample_class_get_speed(const GDExample *self)
+{
+    return self->speed;
 }
 
 void gdexample_class_bind_methods()
