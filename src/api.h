@@ -35,3 +35,7 @@ extern struct API
 } api;
 
 void load_api(GDExtensionInterfaceGetProcAddress p_get_proc_address);
+
+// Helpers for ptrcall functions.
+void ptrcall_0_args_ret_float(void *method_userdata, GDExtensionClassInstancePtr p_instance, const GDExtensionConstTypePtr *p_args, GDExtensionTypePtr r_ret);
+void ptrcall_1_float_arg_no_ret(void *method_userdata, GDExtensionClassInstancePtr p_instance, const GDExtensionConstTypePtr *p_args, GDExtensionTypePtr r_ret);
