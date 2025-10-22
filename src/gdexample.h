@@ -7,6 +7,8 @@
 // Struct to hold the node data.
 typedef struct
 {
+    // Private properties.
+    double time_passed;
     // Public properties.
     double amplitude;
     double speed;
@@ -30,3 +32,6 @@ double gdexample_class_get_speed(const GDExample *self);
 void gdexample_class_bind_methods();
 GDExtensionObjectPtr gdexample_class_create_instance(void *p_class_userdata);
 void gdexample_class_free_instance(void *p_class_userdata, GDExtensionClassInstancePtr p_instance);
+
+// Methods.
+void gdexample_class_process(GDExample *self, double delta);
