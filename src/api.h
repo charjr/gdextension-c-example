@@ -28,7 +28,7 @@ extern struct Destructors
     GDExtensionPtrDestructor string_destructor;
 } destructors;
 
-struct Operators
+extern struct Operators
 {
     GDExtensionPtrOperatorEvaluator string_name_equal;
 } operators;
