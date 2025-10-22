@@ -58,6 +58,13 @@ GDExtensionPropertyInfo make_property_full(
 
 void destruct_property(GDExtensionPropertyInfo *info);
 
+void bind_property(
+    const char *class_name,
+    const char *name,
+    GDExtensionVariantType type,
+    const char *getter,
+    const char *setter);
+
 void load_api(GDExtensionInterfaceGetProcAddress p_get_proc_address);
 
 // Version for 0 arguments, with return.
