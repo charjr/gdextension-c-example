@@ -35,3 +35,6 @@ void gdexample_class_free_instance(void *p_class_userdata, GDExtensionClassInsta
 
 // Methods.
 void gdexample_class_process(GDExample *self, double delta);
+
+void *gdexample_class_get_virtual_with_data(void *p_class_userdata, GDExtensionConstStringNamePtr p_name);
+void gdexample_class_call_virtual_with_data(GDExtensionClassInstancePtr p_instance, GDExtensionConstStringNamePtr p_name, void *p_virtual_call_userdata, const GDExtensionConstTypePtr *p_args, GDExtensionTypePtr r_ret);
