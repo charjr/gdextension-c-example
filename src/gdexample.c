@@ -4,12 +4,18 @@
 
 void gdexample_class_constructor(GDExample *self)
 {
+    self->time_passed = 0.0;
     self->amplitude = 10.0;
     self->speed = 1.0;
 }
 
 void gdexample_class_destructor(GDExample *self)
 {
+}
+
+void gdexample_class_process(GDExample *self, double delta)
+{
+    self->time_passed += self->speed * delta;
 }
 
 void gdexample_class_set_amplitude(GDExample *self, double amplitude)
