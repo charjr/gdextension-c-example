@@ -82,6 +82,9 @@ void bind_method_1(
     const char *arg1_name,
     GDExtensionVariantType arg1_type);
 
+// Compare a StringName with a C string.
+bool is_string_name_equal(GDExtensionConstStringNamePtr p_a, const char *p_b);
+
 // Helpers for calling functions.
 void call_0_args_ret_float(void *method_userdata, GDExtensionClassInstancePtr p_instance, const GDExtensionConstVariantPtr *p_args, GDExtensionInt p_argument_count, GDExtensionVariantPtr r_return, GDExtensionCallError *r_error);
 void call_1_float_arg_no_ret(void *method_userdata, GDExtensionClassInstancePtr p_instance, const GDExtensionConstVariantPtr *p_args, GDExtensionInt p_argument_count, GDExtensionVariantPtr r_return, GDExtensionCallError *r_error);
