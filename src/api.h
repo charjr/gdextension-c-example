@@ -31,6 +31,8 @@ extern struct Destructors
 extern struct API
 {
     GDExtensionInterfaceClassdbRegisterExtensionClass2 classdb_register_extension_class2;
+    GDExtensionInterfaceClassdbRegisterExtensionClassMethod classdb_register_extension_class_method;
+    GDExtensionInterfaceClassdbRegisterExtensionClassProperty classdb_register_extension_class_property;
     GDExtensionInterfaceClassdbConstructObject classdb_construct_object;
     GDExtensionInterfaceObjectSetInstance object_set_instance;
     GDExtensionInterfaceObjectSetInstanceBinding object_set_instance_binding;
@@ -39,7 +41,6 @@ extern struct API
     GDExtensionInterfaceGetVariantFromTypeConstructor get_variant_from_type_constructor;
     GDExtensionInterfaceGetVariantToTypeConstructor get_variant_to_type_constructor;
     GDExtensionInterfaceVariantGetType variant_get_type;
-    GDExtensionInterfaceClassdbRegisterExtensionClassMethod classdb_register_extension_class_method;
 } api;
 
 // Create a PropertyInfo struct.
