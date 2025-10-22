@@ -28,6 +28,11 @@ extern struct Destructors
     GDExtensionPtrDestructor string_destructor;
 } destructors;
 
+struct Operators
+{
+    GDExtensionPtrOperatorEvaluator string_name_equal;
+} operators;
+
 extern struct API
 {
     GDExtensionInterfaceClassdbRegisterExtensionClass2 classdb_register_extension_class2;
