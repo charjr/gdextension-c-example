@@ -193,6 +193,23 @@ void bind_method_1(
     destruct_property(&args_info[0]);
 }
 
+bool is_string_name_equal(GDExtensionConstStringNamePtr p_a, const char *p_b)
+{
+    // Create a StringName for the C string.
+    StringName string_name;
+    constructors.string_name_new_with_latin1_chars(&string_name, p_b, false);
+
+    // Compare both StringNames.
+    bool is_equal = false;
+    operators.string_name_equal(p_a, &string_name, &is_equal);
+
+    // Destroy the created StringName.
+    destructors.string_name_destructor(&string_name);
+
+    // Return the result.
+    return is_equal;
+}
+
 void call_0_args_ret_float(void *method_userdata, GDExtensionClassInstancePtr p_instance, const GDExtensionConstVariantPtr *p_args, GDExtensionInt p_argument_count, GDExtensionVariantPtr r_return, GDExtensionCallError *r_error)
 {
     // Check argument count.
