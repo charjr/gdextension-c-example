@@ -81,6 +81,30 @@ void destruct_property(GDExtensionPropertyInfo *info)
     api.mem_free(info->class_name);
 }
 
+void bind_property(
+    const char *class_name,
+    const char *name,
+    GDExtensionVariantType type,
+    const char *getter,
+    const char *setter)
+{
+    StringName class_string_name;
+    constructors.string_name_new_with_latin1_chars(&class_string_name, class_name, false);
+    GDExtensionPropertyInfo info = make_property(type, name);
+    StringName getter_name;
+    constructors.string_name_new_with_latin1_chars(&getter_name, getter, false);
+    StringName setter_name;
+    constructors.string_name_new_with_latin1_chars(&setter_name, setter, false);
+
+    api.classdb_register_extension_class_property(class_library, &class_string_name, &info, &setter_name, &getter_name);
+
+    // Destruct things.
+    destructors.string_name_destructor(&class_string_name);
+    destruct_property(&info);
+    destructors.string_name_destructor(&getter_name);
+    destructors.string_name_destructor(&setter_name);
+}
+
 // Version for 0 arguments, with return.
 void bind_method_0_r(
     const char *class_name,
