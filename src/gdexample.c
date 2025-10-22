@@ -87,3 +87,23 @@ void gdexample_class_free_instance(void *p_class_userdata, GDExtensionClassInsta
     gdexample_class_destructor(self);
     api.mem_free(self);
 }
+
+void *gdexample_class_get_virtual_with_data(void *p_class_userdata, GDExtensionConstStringNamePtr p_name)
+{
+    // If it is the "_process" method, return a pointer to the gdexample_class_process function.
+    if (is_string_name_equal(p_name, "_process"))
+    {
+        return (void *)gdexample_class_process;
+    }
+    // Otherwise, return NULL.
+    return NULL;
+}
+
+void gdexample_class_call_virtual_with_data(GDExtensionClassInstancePtr p_instance, GDExtensionConstStringNamePtr p_name, void *p_virtual_call_userdata, const GDExtensionConstTypePtr *p_args, GDExtensionTypePtr r_ret)
+{
+    // If it is the "_process" method, call it with a helper.
+    if (p_virtual_call_userdata == &gdexample_class_process)
+    {
+        ptrcall_1_float_arg_no_ret(p_virtual_call_userdata, p_instance, p_args, r_ret);
+    }
+}
