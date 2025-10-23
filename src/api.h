@@ -20,6 +20,7 @@ extern struct Constructors
     GDExtensionInterfaceStringNewWithUtf8Chars string_new_with_utf8_chars;
     GDExtensionVariantFromTypeConstructorFunc variant_from_float_constructor;
     GDExtensionTypeFromVariantConstructorFunc float_from_variant_constructor;
+    GDExtensionPtrConstructor vector2_constructor_x_y;
 } constructors;
 
 extern struct Destructors
