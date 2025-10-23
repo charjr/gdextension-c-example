@@ -10,6 +10,17 @@ void initialize_gdexample_module(void *p_userdata, GDExtensionInitializationLeve
         return;
     }
 
+    // Get ClassDB methods here because the classes we need are all properly registered now.
+    // See extension_api.json for hashes.
+    StringName native_class_name;
+    StringName method_name;
+
+    constructors.string_name_new_with_latin1_chars(&native_class_name, "Node2D", false);
+    constructors.string_name_new_with_latin1_chars(&method_name, "set_position", false);
+    methods.node2d_set_position = api.classdb_get_method_bind(&native_class_name, &method_name, 743155724); // number at end is a hash of the method signature, used for backwards compatibility
+    destructors.string_name_destructor(&native_class_name);
+    destructors.string_name_destructor(&method_name);
+
     // Register class.
     StringName class_name;
     constructors.string_name_new_with_latin1_chars(&class_name, "GDExample", false);
