@@ -29,6 +29,11 @@ extern struct Destructors
     GDExtensionPtrDestructor string_destructor;
 } destructors;
 
+struct Methods
+{
+    GDExtensionMethodBindPtr node2d_set_position;
+} methods;
+
 extern struct Operators
 {
     GDExtensionPtrOperatorEvaluator string_name_equal;
