@@ -23,6 +23,12 @@
 #define STRING_NAME_SIZE 8
 #endif
 
+#ifdef REAL_T_IS_DOUBLE
+#define VECTOR2_SIZE 16
+#else
+#define VECTOR2_SIZE 8
+#endif
+
 // Types.
 
 typedef struct
@@ -34,6 +40,11 @@ typedef struct
 {
     uint8_t data[STRING_NAME_SIZE];
 } StringName;
+
+typedef struct
+{
+    uint8_t data[VECTOR2_SIZE];
+} Vector2;
 
 // Enums.
 
