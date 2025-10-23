@@ -35,8 +35,8 @@ void initialize_gdexample_module(void *p_userdata, GDExtensionInitializationLeve
         .free_instance_func = gdexample_class_free_instance,
         .recreate_instance_func = NULL,
         .get_virtual_func = NULL,
-        .get_virtual_call_data_func = NULL,
-        .call_virtual_with_data_func = NULL,
+        .get_virtual_call_data_func = gdexample_class_get_virtual_with_data,
+        .call_virtual_with_data_func = gdexample_class_call_virtual_with_data,
         .get_rid_func = NULL,
         .class_userdata = NULL,
     };
