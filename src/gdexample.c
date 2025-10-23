@@ -2,6 +2,8 @@
 
 #include "api.h"
 
+#include <math.h>
+
 void gdexample_class_constructor(GDExample *self)
 {
     self->time_passed = 0.0;
@@ -16,6 +18,20 @@ void gdexample_class_destructor(GDExample *self)
 void gdexample_class_process(GDExample *self, double delta)
 {
     self->time_passed += self->speed * delta;
+
+    Vector2 new_position;
+
+    // Set up the arguments for the Vector2 constructor.
+    double x = self->amplitude + (self->amplitude * sin(self->time_passed * 2.0));
+    double y = self->amplitude + (self->amplitude * cos(self->time_passed * 1.5));
+    GDExtensionConstTypePtr args[] = {&x, &y};
+    // Call the Vector2 constructor.
+    constructors.vector2_constructor_x_y(&new_position, args);
+
+    // Set up the arguments for the set_position method.
+    GDExtensionConstTypePtr args2[] = {&new_position};
+    // Call the set_position method.
+    api.object_method_bind_ptrcall(methods.node2d_set_position, self->object, args2, NULL);
 }
 
 void gdexample_class_set_amplitude(GDExample *self, double amplitude)
