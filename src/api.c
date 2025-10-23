@@ -35,6 +35,7 @@ void load_api(GDExtensionInterfaceGetProcAddress p_get_proc_address)
     constructors.string_new_with_utf8_chars = p_get_proc_address("string_new_with_utf8_chars");
     constructors.variant_from_float_constructor = api.get_variant_from_type_constructor(GDEXTENSION_VARIANT_TYPE_FLOAT);
     constructors.float_from_variant_constructor = api.get_variant_to_type_constructor(GDEXTENSION_VARIANT_TYPE_FLOAT);
+    constructors.vector2_constructor_x_y = variant_get_ptr_constructor(GDEXTENSION_VARIANT_TYPE_VECTOR2, 3); // See extension_api.json for indices.
 
     // Destructors.
     destructors.string_name_destructor = variant_get_ptr_destructor(GDEXTENSION_VARIANT_TYPE_STRING_NAME);
