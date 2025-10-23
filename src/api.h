@@ -52,6 +52,8 @@ extern struct API
     GDExtensionInterfaceGetVariantFromTypeConstructor get_variant_from_type_constructor;
     GDExtensionInterfaceGetVariantToTypeConstructor get_variant_to_type_constructor;
     GDExtensionInterfaceVariantGetType variant_get_type;
+    GDExtensionInterfaceClassdbGetMethodBind classdb_get_method_bind;
+    GDExtensionInterfaceObjectMethodBindPtrcall object_method_bind_ptrcall;
 } api;
 
 // Create a PropertyInfo struct.
