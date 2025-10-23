@@ -29,7 +29,7 @@ extern struct Destructors
     GDExtensionPtrDestructor string_destructor;
 } destructors;
 
-struct Methods
+extern struct Methods
 {
     GDExtensionMethodBindPtr node2d_set_position;
 } methods;
