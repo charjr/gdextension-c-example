@@ -30,6 +30,7 @@ void load_api(GDExtensionInterfaceGetProcAddress p_get_proc_address)
     api.variant_get_type = (GDExtensionInterfaceVariantGetType)p_get_proc_address("variant_get_type");
     api.classdb_get_method_bind = (GDExtensionInterfaceClassdbGetMethodBind)p_get_proc_address("classdb_get_method_bind");
     api.object_method_bind_ptrcall = p_get_proc_address("object_method_bind_ptrcall");
+    api.object_method_bind_call = p_get_proc_address("object_method_bind_call");
 
     // Constructors.
     constructors.string_name_new_with_latin1_chars = (GDExtensionInterfaceStringNameNewWithLatin1Chars)p_get_proc_address("string_name_new_with_latin1_chars");
@@ -37,10 +38,13 @@ void load_api(GDExtensionInterfaceGetProcAddress p_get_proc_address)
     constructors.variant_from_float_constructor = api.get_variant_from_type_constructor(GDEXTENSION_VARIANT_TYPE_FLOAT);
     constructors.float_from_variant_constructor = api.get_variant_to_type_constructor(GDEXTENSION_VARIANT_TYPE_FLOAT);
     constructors.vector2_constructor_x_y = variant_get_ptr_constructor(GDEXTENSION_VARIANT_TYPE_VECTOR2, 3); // See extension_api.json for indices.
+    constructors.variant_from_string_name_constructor = api.get_variant_from_type_constructor(GDEXTENSION_VARIANT_TYPE_STRING_NAME);
+    constructors.variant_from_vector2_constructor = api.get_variant_from_type_constructor(GDEXTENSION_VARIANT_TYPE_VECTOR2);
 
     // Destructors.
     destructors.string_name_destructor = variant_get_ptr_destructor(GDEXTENSION_VARIANT_TYPE_STRING_NAME);
     destructors.string_destructor = variant_get_ptr_destructor(GDEXTENSION_VARIANT_TYPE_STRING);
+    destructors.variant_destroy = p_get_proc_address("variant_destroy");
 
     // Operators.
     operators.string_name_equal = variant_get_ptr_operator_evaluator(GDEXTENSION_VARIANT_OP_EQUAL, GDEXTENSION_VARIANT_TYPE_STRING_NAME, GDEXTENSION_VARIANT_TYPE_STRING_NAME);
@@ -289,6 +293,26 @@ void call_1_float_arg_no_ret(void *method_userdata, GDExtensionClassInstancePtr 
     // Call the function.
     void (*function)(void *, double) = method_userdata;
     function(p_instance, arg1);
+}
+
+void call_2_args_stringname_vector2_no_ret_variant(GDExtensionMethodBindPtr p_method_bind, GDExtensionObjectPtr p_instance, const GDExtensionTypePtr p_arg1, const GDExtensionTypePtr p_arg2)
+{
+    // Set up the arguments for the call.
+    Variant arg1;
+    constructors.variant_from_string_name_constructor(&arg1, p_arg1);
+    Variant arg2;
+    constructors.variant_from_vector2_constructor(&arg2, p_arg2);
+    GDExtensionConstVariantPtr args[] = {&arg1, &arg2};
+
+    // Add dummy return value storage.
+    Variant ret;
+
+    // Call the function.
+    api.object_method_bind_call(p_method_bind, p_instance, args, 2, &ret, NULL);
+
+    // Destroy the arguments that need it.
+    destructors.variant_destroy(&arg1);
+    destructors.variant_destroy(&ret);
 }
 
 void ptrcall_0_args_ret_float(void *method_userdata, GDExtensionClassInstancePtr p_instance, const GDExtensionConstTypePtr *p_args, GDExtensionTypePtr r_ret)
