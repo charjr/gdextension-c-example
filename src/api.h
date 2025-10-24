@@ -20,6 +20,8 @@ extern struct Constructors
     GDExtensionInterfaceStringNewWithUtf8Chars string_new_with_utf8_chars;
     GDExtensionVariantFromTypeConstructorFunc variant_from_float_constructor;
     GDExtensionTypeFromVariantConstructorFunc float_from_variant_constructor;
+    GDExtensionVariantFromTypeConstructorFunc variant_from_string_name_constructor;
+    GDExtensionVariantFromTypeConstructorFunc variant_from_vector2_constructor;
     GDExtensionPtrConstructor vector2_constructor_x_y;
 } constructors;
 
@@ -27,11 +29,13 @@ extern struct Destructors
 {
     GDExtensionPtrDestructor string_name_destructor;
     GDExtensionPtrDestructor string_destructor;
+    GDExtensionInterfaceVariantDestroy variant_destroy;
 } destructors;
 
 extern struct Methods
 {
     GDExtensionMethodBindPtr node2d_set_position;
+    GDExtensionMethodBindPtr object_emit_signal;
 } methods;
 
 extern struct Operators
@@ -44,7 +48,7 @@ extern struct API
     GDExtensionInterfaceClassdbRegisterExtensionClass2 classdb_register_extension_class2;
     GDExtensionInterfaceClassdbRegisterExtensionClassMethod classdb_register_extension_class_method;
     GDExtensionInterfaceClassdbRegisterExtensionClassProperty classdb_register_extension_class_property;
-  GDExtensionInterfaceClassdbRegisterExtensionClassSignal classdb_register_extension_class_signal;
+    GDExtensionInterfaceClassdbRegisterExtensionClassSignal classdb_register_extension_class_signal;
     GDExtensionInterfaceClassdbConstructObject classdb_construct_object;
     GDExtensionInterfaceObjectSetInstance object_set_instance;
     GDExtensionInterfaceObjectSetInstanceBinding object_set_instance_binding;
@@ -55,6 +59,7 @@ extern struct API
     GDExtensionInterfaceVariantGetType variant_get_type;
     GDExtensionInterfaceClassdbGetMethodBind classdb_get_method_bind;
     GDExtensionInterfaceObjectMethodBindPtrcall object_method_bind_ptrcall;
+    GDExtensionInterfaceObjectMethodBindCall object_method_bind_call;
 } api;
 
 // Create a PropertyInfo struct.
@@ -102,6 +107,12 @@ void bind_signal_1(
     const char *signal_name,
     const char *arg1_name,
     GDExtensionVariantType arg1_type);
+
+void call_2_args_stringname_vector2_no_ret_variant(
+    GDExtensionMethodBindPtr p_method_bind,
+    GDExtensionObjectPtr p_instance,
+    const GDExtensionTypePtr p_arg1,
+    const GDExtensionTypePtr p_arg2);
 
 // Compare a StringName with a C string.
 bool is_string_name_equal(GDExtensionConstStringNamePtr p_a, const char *p_b);
