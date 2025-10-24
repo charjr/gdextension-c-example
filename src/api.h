@@ -44,6 +44,7 @@ extern struct API
     GDExtensionInterfaceClassdbRegisterExtensionClass2 classdb_register_extension_class2;
     GDExtensionInterfaceClassdbRegisterExtensionClassMethod classdb_register_extension_class_method;
     GDExtensionInterfaceClassdbRegisterExtensionClassProperty classdb_register_extension_class_property;
+  GDExtensionInterfaceClassdbRegisterExtensionClassSignal classdb_register_extension_class_signal;
     GDExtensionInterfaceClassdbConstructObject classdb_construct_object;
     GDExtensionInterfaceObjectSetInstance object_set_instance;
     GDExtensionInterfaceObjectSetInstanceBinding object_set_instance_binding;
@@ -92,6 +93,13 @@ void bind_method_1(
     const char *class_name,
     const char *method_name,
     void *function,
+    const char *arg1_name,
+    GDExtensionVariantType arg1_type);
+
+// Version for 1 argument.
+void bind_signal_1(
+    const char *class_name,
+    const char *signal_name,
     const char *arg1_name,
     GDExtensionVariantType arg1_type);
 
