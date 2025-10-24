@@ -9,11 +9,13 @@ typedef struct
 {
     // Private properties.
     double time_passed;
+    double time_emit;
     // Public properties.
     double amplitude;
     double speed;
     // Metadata.
     GDExtensionObjectPtr object; // Stores the underlying Godot object.
+    StringName position_changed; // For signal.
 } GDExample;
 
 // Constructor for the node.
