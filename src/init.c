@@ -18,6 +18,9 @@ void initialize_gdexample_module(void *p_userdata, GDExtensionInitializationLeve
     constructors.string_name_new_with_latin1_chars(&native_class_name, "Node2D", false);
     constructors.string_name_new_with_latin1_chars(&method_name, "set_position", false);
     methods.node2d_set_position = api.classdb_get_method_bind(&native_class_name, &method_name, 743155724); // number at end is a hash of the method signature, used for backwards compatibility
+    constructors.string_name_new_with_latin1_chars(&native_class_name, "Object", false);
+    constructors.string_name_new_with_latin1_chars(&method_name, "emit_signal", false);
+    methods.object_emit_signal = api.classdb_get_method_bind(&native_class_name, &method_name, 4047867050);
     destructors.string_name_destructor(&native_class_name);
     destructors.string_name_destructor(&method_name);
 
