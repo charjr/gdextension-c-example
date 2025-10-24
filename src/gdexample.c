@@ -7,12 +7,18 @@
 void gdexample_class_constructor(GDExample *self)
 {
     self->time_passed = 0.0;
+    self->time_emit = 0.0;
     self->amplitude = 10.0;
     self->speed = 1.0;
+
+    // Construct the StringName for the signal.
+    constructors.string_name_new_with_latin1_chars(&self->position_changed, "position_changed", false);
 }
 
 void gdexample_class_destructor(GDExample *self)
 {
+    // Destruct the StringName for the signal.
+    destructors.string_name_destructor(&self->position_changed);
 }
 
 void gdexample_class_process(GDExample *self, double delta)
@@ -32,6 +38,14 @@ void gdexample_class_process(GDExample *self, double delta)
     GDExtensionConstTypePtr args2[] = {&new_position};
     // Call the set_position method.
     api.object_method_bind_ptrcall(methods.node2d_set_position, self->object, args2, NULL);
+
+    self->time_emit += delta;
+    if (self->time_emit >= 1.0)
+    {
+        // Call the emit_signal method.
+        call_2_args_stringname_vector2_no_ret_variant(methods.object_emit_signal, self->object, &self->position_changed, &new_position);
+        self->time_emit = 0.0;
+    }
 }
 
 void gdexample_class_set_amplitude(GDExample *self, double amplitude)
