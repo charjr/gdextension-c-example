@@ -24,8 +24,10 @@
 #endif
 
 #ifdef REAL_T_IS_DOUBLE
+#define VARIANT_SIZE 40
 #define VECTOR2_SIZE 16
 #else
+#define VARIANT_SIZE 24
 #define VECTOR2_SIZE 8
 #endif
 
@@ -60,3 +62,8 @@ typedef enum
     PROPERTY_USAGE_EDITOR = 4,
     PROPERTY_USAGE_DEFAULT = PROPERTY_USAGE_STORAGE | PROPERTY_USAGE_EDITOR,
 } PropertyUsageFlags;
+
+typedef struct
+{
+    uint8_t data[VARIANT_SIZE];
+} Variant;
