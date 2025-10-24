@@ -19,6 +19,7 @@ void load_api(GDExtensionInterfaceGetProcAddress p_get_proc_address)
     api.classdb_register_extension_class2 = (GDExtensionInterfaceClassdbRegisterExtensionClass2)p_get_proc_address("classdb_register_extension_class2");
     api.classdb_register_extension_class_method = p_get_proc_address("classdb_register_extension_class_method");
     api.classdb_register_extension_class_property = p_get_proc_address("classdb_register_extension_class_property");
+    api.classdb_register_extension_class_signal = p_get_proc_address("classdb_register_extension_class_signal");
     api.classdb_construct_object = (GDExtensionInterfaceClassdbConstructObject)p_get_proc_address("classdb_construct_object");
     api.object_set_instance = p_get_proc_address("object_set_instance");
     api.object_set_instance_binding = p_get_proc_address("object_set_instance_binding");
@@ -195,6 +196,29 @@ void bind_method_1(
     // Destruct things.
     destructors.string_name_destructor(&method_name_string);
     destructors.string_name_destructor(&class_name_string);
+    destruct_property(&args_info[0]);
+}
+
+void bind_signal_1(
+    const char *class_name,
+    const char *signal_name,
+    const char *arg1_name,
+    GDExtensionVariantType arg1_type)
+{
+    StringName class_string_name;
+    constructors.string_name_new_with_latin1_chars(&class_string_name, class_name, false);
+    StringName signal_string_name;
+    constructors.string_name_new_with_latin1_chars(&signal_string_name, signal_name, false);
+
+    GDExtensionPropertyInfo args_info[] = {
+        make_property(arg1_type, arg1_name),
+    };
+
+    api.classdb_register_extension_class_signal(class_library, &class_string_name, &signal_string_name, args_info, 1);
+
+    // Destruct things.
+    destructors.string_name_destructor(&class_string_name);
+    destructors.string_name_destructor(&signal_string_name);
     destruct_property(&args_info[0]);
 }
 
